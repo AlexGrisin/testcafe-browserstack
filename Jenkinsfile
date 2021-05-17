@@ -22,7 +22,7 @@ pipeline {
         stage('Test') { 
             steps {
                 browserstack(credentialsId: '<browserstack') {
-                    sh "npm run test"
+                    sh "npm run bs-test"
                 }
             }
         }
