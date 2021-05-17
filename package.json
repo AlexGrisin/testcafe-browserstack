@@ -8,12 +8,17 @@
   },
   "scripts": {
     "test": "testcafe chrome:headless tests",
-    "bs-test": "browserstack:chrome@79.0:Windows 10"
+    "bs-browsers": "testcafe -b browserstack",
+    "bs-test": "testcafe 'browserstack:chrome@90.0:Windows 10' tests"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "lodash": "^4.17.21",
     "testcafe": "^1.14.2",
     "testcafe-browser-provider-browserstack": "*"
+  },
+  "devDependencies": {
+    "@browserstack/testcafe": "^1.8.6"
   }
 }
