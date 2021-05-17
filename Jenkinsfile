@@ -1,19 +1,30 @@
-node {    
-    properties([
-        buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '5', numToKeepStr: '5'))
-    ])
-
-    stage('checkout') {
-        checkout scm
+pipeline {
+    agent {
+        docker {
+            image 'node:12-alpine'
+            args '-p 3000:3000'
+        }
     }
-
-    stage('build') {
-        sh "npm install"
+    environment {
+        CI = 'true' 
     }
-  
-    stage('test') {
-        browserstack(credentialsId: '<browserstack') {
-            sh "npm run test"
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'npm install'
+            }
+        }
+        stage('Test') { 
+            steps {
+                browserstack(credentialsId: '<browserstack') {
+                    sh "npm run test"
+                }
+            }
         }
     }
 }
